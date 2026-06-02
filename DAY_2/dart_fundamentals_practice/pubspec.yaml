@@ -1,0 +1,6 @@
+name: dart_fundamentals_practice
+description: A collection of Dart examples demonstrating core language concepts.
+publish_to: 'none'
+version: 0.1.0
+environment:
+  sdk: '>=2.18.0 <4.0.0'
