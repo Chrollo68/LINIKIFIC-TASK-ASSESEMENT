@@ -24,5 +24,5 @@ void main() {
   bool hasResources = false;
   print('Can start project: ${onTime && hasResources}');
   print('Needs follow-up: ${onTime && !hasResources}');
-  print('Ready or pending: ${onTime || hasResources}');
+  print('Ready or pending: ${onTime}');
 }
