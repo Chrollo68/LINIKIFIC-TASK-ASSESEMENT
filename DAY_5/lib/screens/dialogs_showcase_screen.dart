@@ -4,6 +4,7 @@ class DialogsShowcaseScreen extends StatelessWidget {
   const DialogsShowcaseScreen({super.key});
 
   Future<void> _showConfirmationDialog(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) {
@@ -25,13 +26,12 @@ class DialogsShowcaseScreen extends StatelessWidget {
     );
 
     if (confirmed == true) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Action confirmed')));
+      messenger.showSnackBar(const SnackBar(content: Text('Action confirmed')));
     }
   }
 
   Future<void> _showOptionDialog(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
     final selected = await showDialog<String>(
       context: context,
       builder: (context) {
@@ -56,9 +56,7 @@ class DialogsShowcaseScreen extends StatelessWidget {
     );
 
     if (selected != null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Selected: $selected')));
+      messenger.showSnackBar(SnackBar(content: Text('Selected: $selected')));
     }
   }
 
@@ -114,9 +112,8 @@ class DialogsShowcaseScreen extends StatelessWidget {
                 width: 60,
                 height: 6,
                 decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.2),
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withAlpha(0x33),
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
@@ -142,6 +139,7 @@ class DialogsShowcaseScreen extends StatelessWidget {
   }
 
   Future<void> _showDatePicker(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
     final selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -150,7 +148,7 @@ class DialogsShowcaseScreen extends StatelessWidget {
     );
 
     if (selectedDate != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(
           content: Text(
             'Selected date: ${selectedDate.toLocal().toString().split(' ')[0]}',
@@ -161,15 +159,18 @@ class DialogsShowcaseScreen extends StatelessWidget {
   }
 
   Future<void> _showTimePicker(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
     final selectedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
 
     if (selectedTime != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      final formattedTime =
+          '${selectedTime.hour.toString().padLeft(2, '0')}:${selectedTime.minute.toString().padLeft(2, '0')}';
+      messenger.showSnackBar(
         SnackBar(
-          content: Text('Selected time: ${selectedTime.format(context)}'),
+          content: Text('Selected time: $formattedTime'),
         ),
       );
     }

@@ -14,7 +14,7 @@ class AppTheme {
       backgroundColor: _colorScheme.primary,
       foregroundColor: _colorScheme.onPrimary,
     ),
-    scaffoldBackgroundColor: _colorScheme.background,
+    scaffoldBackgroundColor: _colorScheme.surface,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
     ),

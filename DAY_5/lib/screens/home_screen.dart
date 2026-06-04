@@ -3,33 +3,33 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  static const List<_ShowcaseItem> showcaseItems = [
-    _ShowcaseItem(
+  static const List<ShowcaseItem> showcaseItems = [
+    ShowcaseItem(
       title: 'Buttons Showcase',
       route: '/buttons',
       icon: Icons.smart_button,
     ),
-    _ShowcaseItem(
+    ShowcaseItem(
       title: 'Forms Showcase',
       route: '/forms',
       icon: Icons.edit_note,
     ),
-    _ShowcaseItem(
+    ShowcaseItem(
       title: 'Dialogs Showcase',
       route: '/dialogs',
       icon: Icons.chat_bubble_outline,
     ),
-    _ShowcaseItem(
+    ShowcaseItem(
       title: 'SnackBar Showcase',
       route: '/snackbar',
       icon: Icons.message,
     ),
-    _ShowcaseItem(
+    ShowcaseItem(
       title: 'Cards & ListTiles',
       route: '/cards',
       icon: Icons.view_kanban,
     ),
-    _ShowcaseItem(
+    ShowcaseItem(
       title: 'Profile Screen',
       route: '/profile',
       icon: Icons.person,
@@ -174,12 +174,12 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _ShowcaseItem {
+class ShowcaseItem {
   final String title;
   final String route;
   final IconData icon;
 
-  const _ShowcaseItem({
+  const ShowcaseItem({
     required this.title,
     required this.route,
     required this.icon,

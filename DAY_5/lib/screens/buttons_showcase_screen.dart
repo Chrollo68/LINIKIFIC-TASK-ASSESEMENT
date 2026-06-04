@@ -108,13 +108,13 @@ class ButtonsShowcaseScreen extends StatelessWidget {
             children: [
               FloatingActionButton.small(
                 onPressed: () {},
-                child: const Icon(Icons.add),
                 tooltip: 'Small FAB',
+                child: const Icon(Icons.add),
               ),
               FloatingActionButton(
                 onPressed: () {},
-                child: const Icon(Icons.create),
                 tooltip: 'Regular FAB',
+                child: const Icon(Icons.create),
               ),
               FloatingActionButton.extended(
                 onPressed: () {},
