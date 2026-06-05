@@ -49,19 +49,19 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Card(
+          const Card(
             child: Column(
               children: [
                 ListTile(
-                  leading: const Icon(Icons.location_on),
-                  title: const Text('Location'),
-                  subtitle: const Text('San Francisco, CA'),
+                  leading: Icon(Icons.location_on),
+                  title: Text('Location'),
+                  subtitle: Text('San Francisco, CA'),
                 ),
-                const Divider(),
+                Divider(),
                 ListTile(
-                  leading: const Icon(Icons.work_outline),
-                  title: const Text('Role'),
-                  subtitle: const Text('Senior UX / UI Designer'),
+                  leading: Icon(Icons.work_outline),
+                  title: Text('Role'),
+                  subtitle: Text('Senior UX / UI Designer'),
                 ),
               ],
             ),
@@ -78,10 +78,10 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {},
                 ),
                 const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.calendar_today),
-                  title: const Text('Member Since'),
-                  subtitle: const Text('January 2024'),
+                const ListTile(
+                  leading: Icon(Icons.calendar_today),
+                  title: Text('Member Since'),
+                  subtitle: Text('January 2024'),
                 ),
                 const Divider(),
                 ListTile(

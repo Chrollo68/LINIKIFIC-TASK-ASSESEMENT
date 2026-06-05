@@ -28,7 +28,7 @@ class ButtonsShowcaseScreen extends StatelessWidget {
                 icon: const Icon(Icons.thumb_up),
                 label: const Text('Icon Elevated'),
               ),
-              ElevatedButton(onPressed: null, child: const Text('Disabled')),
+              const ElevatedButton(onPressed: null, child: Text('Disabled')),
             ],
           ),
           const SizedBox(height: 24),

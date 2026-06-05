@@ -17,12 +17,12 @@ class CardsListTilesScreen extends StatelessWidget {
         children: [
           Text('Card widgets', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 12),
-          Card(
+          const Card(
             child: ListTile(
-              leading: const Icon(Icons.star_outline),
-              title: const Text('Simple Card'),
-              subtitle: const Text('A basic Material card with elevation.'),
-              trailing: const Icon(Icons.arrow_forward_ios),
+              leading: Icon(Icons.star_outline),
+              title: Text('Simple Card'),
+              subtitle: Text('A basic Material card with elevation.'),
+              trailing: Icon(Icons.arrow_forward_ios),
             ),
           ),
           const SizedBox(height: 12),
@@ -40,13 +40,13 @@ class CardsListTilesScreen extends StatelessWidget {
           const SizedBox(height: 12),
           Card(
             color: Theme.of(context).colorScheme.primaryContainer,
-            child: ListTile(
-              leading: const Icon(Icons.layers, color: Colors.white),
-              title: const Text(
+            child: const ListTile(
+              leading: Icon(Icons.layers, color: Colors.white),
+              title: Text(
                 'Filled Card',
                 style: TextStyle(color: Colors.white),
               ),
-              subtitle: const Text(
+              subtitle: Text(
                 'A filled card uses the theme surface color.',
                 style: TextStyle(color: Colors.white70),
               ),
@@ -87,21 +87,21 @@ class CardsListTilesScreen extends StatelessWidget {
             );
           }).toList(),
           const SizedBox(height: 24),
-          ExpansionTile(
-            leading: const Icon(Icons.expand_more),
-            title: const Text('More material details'),
+          const ExpansionTile(
+            leading: Icon(Icons.expand_more),
+            title: Text('More material details'),
             children: [
               ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Responsive design'),
-                subtitle: const Text(
+                leading: Icon(Icons.info),
+                title: Text('Responsive design'),
+                subtitle: Text(
                   'ExpansionTile can reveal additional content without leaving the page.',
                 ),
               ),
               ListTile(
-                leading: const Icon(Icons.brush),
-                title: const Text('Theming example'),
-                subtitle: const Text(
+                leading: Icon(Icons.brush),
+                title: Text('Theming example'),
+                subtitle: Text(
                   'Material widgets adapt to the current color scheme.',
                 ),
               ),

@@ -52,9 +52,9 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer,
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     CircleAvatar(
                       radius: 28,
                       child: Icon(Icons.design_services, size: 32),
@@ -99,8 +99,8 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(context, '/profile');
         },
-        child: const Icon(Icons.person_outline),
         tooltip: 'View profile',
+        child: const Icon(Icons.person_outline),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
