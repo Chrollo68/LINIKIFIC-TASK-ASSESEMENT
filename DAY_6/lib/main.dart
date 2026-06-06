@@ -28,16 +28,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<ThemeProvider>(
-        builder: (context, themeProvider, _) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Theming App',
-            theme: lightTheme(),
-            darkTheme: darkTheme(),
-            themeMode: themeProvider.themeMode,
-            home: const MainScreen(),
-          );
-        },
+        builder: (context, themeProvider, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Theming App',
+          theme: lightTheme(),
+          darkTheme: darkTheme(),
+          themeMode: themeProvider.themeMode,
+          home: const MainScreen(),
+        ),
       );
 }
 
@@ -65,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
         body: _screens[_selectedIndex],
         bottomNavigationBar: NavigationBar(
           selectedIndex: _selectedIndex,
-          onDestinationSelected: (int index) {
+          onDestinationSelected: (index) {
             setState(() => _selectedIndex = index);
           },
           destinations: const [

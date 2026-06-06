@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomHeader(
+              const CustomHeader(
                 title: 'Appearance',
                 subtitle: 'Customize your app experience',
               ),
@@ -26,27 +26,25 @@ class SettingsScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(AppSpacing.lg),
                     child: Consumer<ThemeProvider>(
-                      builder: (context, themeProvider, _) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Current Theme',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: AppSpacing.md),
-                            Text(
-                              themeProvider.getThemeModeString(),
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                            const SizedBox(height: AppSpacing.sm),
-                            Text(
-                              themeProvider.getThemeModeDescription(),
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        );
-                      },
+                      builder: (context, themeProvider, _) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Current Theme',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          const SizedBox(height: AppSpacing.md),
+                          Text(
+                            themeProvider.getThemeModeString(),
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                          const SizedBox(height: AppSpacing.sm),
+                          Text(
+                            themeProvider.getThemeModeDescription(),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -57,89 +55,87 @@ class SettingsScreen extends StatelessWidget {
                 title: 'Select Theme',
                 children: [
                   Consumer<ThemeProvider>(
-                    builder: (context, themeProvider, _) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.lg,
-                        ),
-                        child: Column(
-                          spacing: AppSpacing.md,
-                          children: [
-                            // Light Theme Option
-                            Card(
-                              child: ListTile(
-                                title: const Text('Light Theme'),
-                                subtitle: const Text(
-                                  'Bright and clean appearance',
-                                ),
-                                leading: Radio<ThemeMode>(
-                                  value: ThemeMode.light,
-                                  groupValue: themeProvider.themeMode,
-                                  onChanged: (ThemeMode? value) {
-                                    if (value != null) {
-                                      themeProvider.setLightTheme();
-                                    }
-                                  },
-                                ),
-                                trailing: Icon(
-                                  Icons.light_mode,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                onTap: () => themeProvider.setLightTheme(),
+                    builder: (context, themeProvider, _) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
+                      ),
+                      child: Column(
+                        spacing: AppSpacing.md,
+                        children: [
+                          // Light Theme Option
+                          Card(
+                            child: ListTile(
+                              title: const Text('Light Theme'),
+                              subtitle: const Text(
+                                'Bright and clean appearance',
                               ),
+                              leading: Radio<ThemeMode>(
+                                value: ThemeMode.light,
+                                groupValue: themeProvider.themeMode,
+                                onChanged: (ThemeMode? value) {
+                                  if (value != null) {
+                                    themeProvider.setLightTheme();
+                                  }
+                                },
+                              ),
+                              trailing: Icon(
+                                Icons.light_mode,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              onTap: () => themeProvider.setLightTheme(),
                             ),
+                          ),
 
-                            // Dark Theme Option
-                            Card(
-                              child: ListTile(
-                                title: const Text('Dark Theme'),
-                                subtitle: const Text(
-                                  'Dark and comfortable for night use',
-                                ),
-                                leading: Radio<ThemeMode>(
-                                  value: ThemeMode.dark,
-                                  groupValue: themeProvider.themeMode,
-                                  onChanged: (ThemeMode? value) {
-                                    if (value != null) {
-                                      themeProvider.setDarkTheme();
-                                    }
-                                  },
-                                ),
-                                trailing: Icon(
-                                  Icons.dark_mode,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                onTap: () => themeProvider.setDarkTheme(),
+                          // Dark Theme Option
+                          Card(
+                            child: ListTile(
+                              title: const Text('Dark Theme'),
+                              subtitle: const Text(
+                                'Dark and comfortable for night use',
                               ),
+                              leading: Radio<ThemeMode>(
+                                value: ThemeMode.dark,
+                                groupValue: themeProvider.themeMode,
+                                onChanged: (ThemeMode? value) {
+                                  if (value != null) {
+                                    themeProvider.setDarkTheme();
+                                  }
+                                },
+                              ),
+                              trailing: Icon(
+                                Icons.dark_mode,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              onTap: () => themeProvider.setDarkTheme(),
                             ),
+                          ),
 
-                            // System Theme Option
-                            Card(
-                              child: ListTile(
-                                title: const Text('System Theme'),
-                                subtitle: const Text(
-                                  'Follow device system settings',
-                                ),
-                                leading: Radio<ThemeMode>(
-                                  value: ThemeMode.system,
-                                  groupValue: themeProvider.themeMode,
-                                  onChanged: (ThemeMode? value) {
-                                    if (value != null) {
-                                      themeProvider.setSystemTheme();
-                                    }
-                                  },
-                                ),
-                                trailing: Icon(
-                                  Icons.brightness_auto,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                onTap: () => themeProvider.setSystemTheme(),
+                          // System Theme Option
+                          Card(
+                            child: ListTile(
+                              title: const Text('System Theme'),
+                              subtitle: const Text(
+                                'Follow device system settings',
                               ),
+                              leading: Radio<ThemeMode>(
+                                value: ThemeMode.system,
+                                groupValue: themeProvider.themeMode,
+                                onChanged: (ThemeMode? value) {
+                                  if (value != null) {
+                                    themeProvider.setSystemTheme();
+                                  }
+                                },
+                              ),
+                              trailing: Icon(
+                                Icons.brightness_auto,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              onTap: () => themeProvider.setSystemTheme(),
                             ),
-                          ],
-                        ),
-                      );
-                    },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                 ],
@@ -174,17 +170,16 @@ class SettingsScreen extends StatelessWidget {
                               ],
                             ),
                             Consumer<ThemeProvider>(
-                              builder: (context, themeProvider, _) {
-                                return IconButton(
-                                  icon: Icon(
-                                    themeProvider.themeMode == ThemeMode.light
-                                        ? Icons.dark_mode
-                                        : Icons.light_mode,
-                                    size: 32,
-                                  ),
-                                  onPressed: () => themeProvider.toggleTheme(),
-                                );
-                              },
+                              builder: (context, themeProvider, _) =>
+                                  IconButton(
+                                icon: Icon(
+                                  themeProvider.themeMode == ThemeMode.light
+                                      ? Icons.dark_mode
+                                      : Icons.light_mode,
+                                  size: 32,
+                                ),
+                                onPressed: () => themeProvider.toggleTheme(),
+                              ),
                             ),
                           ],
                         ),
@@ -204,43 +199,39 @@ class SettingsScreen extends StatelessWidget {
                       horizontal: AppSpacing.lg,
                     ),
                     child: Consumer<ThemeProvider>(
-                      builder: (context, themeProvider, _) {
-                        return Column(
-                          spacing: AppSpacing.md,
-                          children: [
-                            ThemePreviewCard(
-                              title: 'Light',
-                              backgroundColor: AppColors.lightBackground,
-                              textColor: AppColors.lightTextPrimary,
-                              isSelected:
-                                  themeProvider.themeMode == ThemeMode.light,
-                              onTap: () => themeProvider.setLightTheme(),
-                            ),
-                            ThemePreviewCard(
-                              title: 'Dark',
-                              backgroundColor: AppColors.darkBackground,
-                              textColor: AppColors.darkTextPrimary,
-                              isSelected:
-                                  themeProvider.themeMode == ThemeMode.dark,
-                              onTap: () => themeProvider.setDarkTheme(),
-                            ),
-                            ThemePreviewCard(
-                              title: 'System',
-                              backgroundColor: Theme.of(
-                                context,
-                              ).scaffoldBackgroundColor,
-                              textColor: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.color ??
-                                  Colors.black,
-                              isSelected:
-                                  themeProvider.themeMode == ThemeMode.system,
-                              onTap: () => themeProvider.setSystemTheme(),
-                            ),
-                          ],
-                        );
-                      },
+                      builder: (context, themeProvider, _) => Column(
+                        spacing: AppSpacing.md,
+                        children: [
+                          ThemePreviewCard(
+                            title: 'Light',
+                            backgroundColor: AppColors.lightBackground,
+                            textColor: AppColors.lightTextPrimary,
+                            isSelected:
+                                themeProvider.themeMode == ThemeMode.light,
+                            onTap: () => themeProvider.setLightTheme(),
+                          ),
+                          ThemePreviewCard(
+                            title: 'Dark',
+                            backgroundColor: AppColors.darkBackground,
+                            textColor: AppColors.darkTextPrimary,
+                            isSelected:
+                                themeProvider.themeMode == ThemeMode.dark,
+                            onTap: () => themeProvider.setDarkTheme(),
+                          ),
+                          ThemePreviewCard(
+                            title: 'System',
+                            backgroundColor: Theme.of(
+                              context,
+                            ).scaffoldBackgroundColor,
+                            textColor:
+                                Theme.of(context).textTheme.bodyLarge?.color ??
+                                    Colors.black,
+                            isSelected:
+                                themeProvider.themeMode == ThemeMode.system,
+                            onTap: () => themeProvider.setSystemTheme(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: AppSpacing.lg),

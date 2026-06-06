@@ -1,0 +1,4 @@
+Flutter 3.35.7 G求 channel stable G求 https://github.com/flutter/flutter.git
+Framework G求 revision adc9010625 (8 months ago) G求 2025-10-21 14:16:03 -0400
+Engine G求 hash 6b24e1b529bc46df7ff397667502719a2a8b6b72 (revision 035316565a) (7 months ago) G求 2025-10-21 14:28:01.000Z
+Tools G求 Dart 3.9.2 G求 DevTools 2.48.0

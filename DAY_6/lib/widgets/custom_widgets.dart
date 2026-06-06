@@ -3,7 +3,7 @@ import '../themes/app_theme.dart';
 
 /// Custom header widget
 class CustomHeader extends StatelessWidget {
-  const CustomHeader({required this.title, this.subtitle});
+  const CustomHeader({super.key, required this.title, this.subtitle});
   final String title;
   final String? subtitle;
 
@@ -26,6 +26,7 @@ class CustomHeader extends StatelessWidget {
 /// Themed card widget for demonstration
 class DemoCard extends StatelessWidget {
   const DemoCard({
+    super.key,
     required this.title,
     required this.description,
     this.icon,
@@ -64,6 +65,7 @@ class DemoCard extends StatelessWidget {
 /// Theme preview card
 class ThemePreviewCard extends StatelessWidget {
   const ThemePreviewCard({
+    super.key,
     required this.title,
     required this.backgroundColor,
     required this.textColor,
@@ -113,6 +115,7 @@ class ThemePreviewCard extends StatelessWidget {
 /// Status badge widget
 class StatusBadge extends StatelessWidget {
   const StatusBadge({
+    super.key,
     required this.label,
     required this.backgroundColor,
     required this.textColor,
@@ -145,6 +148,7 @@ class StatusBadge extends StatelessWidget {
 /// Semantic color showcase
 class SemanticColorTile extends StatelessWidget {
   const SemanticColorTile({
+    super.key,
     required this.label,
     required this.color,
     required this.semanticName,
@@ -192,6 +196,7 @@ class SemanticColorTile extends StatelessWidget {
 /// Responsive grid widget
 class ResponsiveGrid extends StatelessWidget {
   const ResponsiveGrid({
+    super.key,
     required this.children,
     this.mobileColumns = 1,
     this.tabletColumns = 2,
@@ -221,7 +226,7 @@ class ResponsiveGrid extends StatelessWidget {
       crossAxisCount: columns,
       mainAxisSpacing: spacing,
       crossAxisSpacing: spacing,
-      childAspectRatio: 1.0,
+      childAspectRatio: 1,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: children,
@@ -231,7 +236,8 @@ class ResponsiveGrid extends StatelessWidget {
 
 /// Feature showcase section
 class FeatureSection extends StatelessWidget {
-  const FeatureSection({required this.title, required this.children});
+  const FeatureSection(
+      {super.key, required this.title, required this.children});
   final String title;
   final List<Widget> children;
 

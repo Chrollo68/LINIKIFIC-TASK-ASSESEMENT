@@ -96,9 +96,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text('Elevated button pressed'),
-                                duration: const Duration(seconds: 2),
+                              const SnackBar(
+                                content: Text('Elevated button pressed'),
+                                duration: Duration(seconds: 2),
                               ),
                             );
                           },
@@ -112,9 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: OutlinedButton(
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text('Outlined button pressed'),
-                                duration: const Duration(seconds: 2),
+                              const SnackBar(
+                                content: Text('Outlined button pressed'),
+                                duration: Duration(seconds: 2),
                               ),
                             );
                           },
@@ -128,9 +128,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: TextButton(
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text('Text button pressed'),
-                                duration: const Duration(seconds: 2),
+                              const SnackBar(
+                                content: Text('Text button pressed'),
+                                duration: Duration(seconds: 2),
                               ),
                             );
                           },
@@ -212,12 +212,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       LinearProgressIndicator(
                         value: 0.7,
-                        minHeight: 8.0,
+                        minHeight: 8,
                         borderRadius: BorderRadius.circular(
                           AppSpacing.radiusSmall,
                         ),
                       ),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CircularProgressIndicator(),

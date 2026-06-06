@@ -47,10 +47,10 @@ class _FormScreenState extends State<FormScreen> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Form submitted successfully!'),
+        const SnackBar(
+          content: Text('Form submitted successfully!'),
           backgroundColor: AppColors.success,
-          duration: const Duration(seconds: 3),
+          duration: Duration(seconds: 3),
         ),
       );
 
@@ -85,7 +85,7 @@ class _FormScreenState extends State<FormScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomHeader(
+              const CustomHeader(
                 title: 'Contact Form',
                 subtitle: 'Demonstrates themed form components',
               ),
@@ -99,10 +99,10 @@ class _FormScreenState extends State<FormScreen> {
                       // Name Field
                       TextFormField(
                         controller: _nameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Full Name',
                           hintText: 'Enter your full name',
-                          prefixIcon: const Icon(Icons.person),
+                          prefixIcon: Icon(Icons.person),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -118,10 +118,10 @@ class _FormScreenState extends State<FormScreen> {
                       // Email Field
                       TextFormField(
                         controller: _emailController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Email Address',
                           hintText: 'Enter your email',
-                          prefixIcon: const Icon(Icons.email),
+                          prefixIcon: Icon(Icons.email),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -140,10 +140,10 @@ class _FormScreenState extends State<FormScreen> {
 
                       // Country Dropdown
                       DropdownButtonFormField<String>(
-                        value: _selectedCountry,
-                        decoration: InputDecoration(
+                        initialValue: _selectedCountry,
+                        decoration: const InputDecoration(
                           labelText: 'Select Country',
-                          prefixIcon: const Icon(Icons.public),
+                          prefixIcon: Icon(Icons.public),
                         ),
                         items: _countries
                             .map(
@@ -167,10 +167,10 @@ class _FormScreenState extends State<FormScreen> {
                       // Message Field
                       TextFormField(
                         controller: _messageController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Message',
                           hintText: 'Enter your message',
-                          prefixIcon: const Icon(Icons.message),
+                          prefixIcon: Icon(Icons.message),
                         ),
                         maxLines: 4,
                         validator: (value) {

@@ -7,7 +7,7 @@ ThemeData darkTheme() => ThemeData(
       scaffoldBackgroundColor: AppColors.darkBackground,
 
       // Color Scheme
-      colorScheme: ColorScheme.dark(
+      colorScheme: const ColorScheme.dark(
         primary: AppColors.primaryLight,
         onPrimary: Colors.black,
         primaryContainer: AppColors.primary,
@@ -24,15 +24,13 @@ ThemeData darkTheme() => ThemeData(
         onError: AppColors.error,
         errorContainer: Color(0xFFB3261E),
         onErrorContainer: Color(0xFFF2B8B5),
-        background: AppColors.darkBackground,
-        onBackground: AppColors.darkTextPrimary,
         surface: AppColors.darkSurface,
         onSurface: AppColors.darkTextPrimary,
         outline: AppColors.darkBorder,
       ),
 
       // App Bar Theme
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         elevation: AppSpacing.elevationSmall,
         backgroundColor: AppColors.darkSurface,
         foregroundColor: AppColors.darkTextPrimary,
@@ -42,7 +40,7 @@ ThemeData darkTheme() => ThemeData(
           fontWeight: FontWeight.w600,
           color: AppColors.darkTextPrimary,
         ),
-        iconTheme: const IconThemeData(color: AppColors.darkTextPrimary),
+        iconTheme: IconThemeData(color: AppColors.darkTextPrimary),
       ),
 
       // Elevated Button Theme
@@ -152,16 +150,16 @@ ThemeData darkTheme() => ThemeData(
       ),
 
       // Chip Theme
-      chipTheme: ChipThemeData(
-        backgroundColor: const Color(0xFF333333),
+      chipTheme: const ChipThemeData(
+        backgroundColor: Color(0xFF333333),
         selectedColor: AppColors.secondaryLight,
         disabledColor: AppColors.darkTextDisabled,
-        padding: const EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         ),
-        labelStyle: const TextStyle(color: AppColors.darkTextPrimary),
-        secondaryLabelStyle: const TextStyle(color: Colors.black),
+        labelStyle: TextStyle(color: AppColors.darkTextPrimary),
+        secondaryLabelStyle: TextStyle(color: Colors.black),
         brightness: Brightness.dark,
       ),
 
@@ -175,10 +173,10 @@ ThemeData darkTheme() => ThemeData(
       ),
 
       // Bottom Sheet Theme
-      bottomSheetTheme: BottomSheetThemeData(
+      bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: AppColors.darkSurface,
         elevation: AppSpacing.elevationLarge,
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppSpacing.radiusLarge),
           ),
@@ -186,13 +184,13 @@ ThemeData darkTheme() => ThemeData(
       ),
 
       // Progress Indicator Theme
-      progressIndicatorTheme: ProgressIndicatorThemeData(
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: AppColors.secondaryLight,
-        linearTrackColor: const Color(0xFF333333),
+        linearTrackColor: Color(0xFF333333),
       ),
 
       // Text Theme
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: AppTypography.displayLargeSize,
           fontWeight: FontWeight.w400,
@@ -238,12 +236,12 @@ ThemeData darkTheme() => ThemeData(
       // Divider Theme
       dividerTheme: const DividerThemeData(
         color: AppColors.darkBorder,
-        thickness: 1.0,
+        thickness: 1,
       ),
 
       // Icon Theme
       iconTheme: const IconThemeData(
         color: AppColors.darkTextPrimary,
-        size: 24.0,
+        size: 24,
       ),
     );

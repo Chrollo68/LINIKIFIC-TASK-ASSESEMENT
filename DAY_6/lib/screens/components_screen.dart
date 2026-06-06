@@ -15,7 +15,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
   void _showDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (context) => AlertDialog(
         title: const Text('Dialog Title'),
         content: const Text(
           'This is a themed dialog component. All colors and styles are inherited from the active theme.',
@@ -37,7 +37,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) => Container(
+      builder: (context) => Container(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -83,7 +83,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomHeader(
+              const CustomHeader(
                 title: 'UI Components',
                 subtitle: 'All themed with Material 3 design system',
               ),
@@ -141,7 +141,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
-                        Row(
+                        const Row(
                           spacing: AppSpacing.md,
                           children: [
                             Expanded(
@@ -162,7 +162,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                         ),
 
                         // Secondary Colors
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         Text(
                           'Secondary Colors',
                           style:
@@ -170,7 +170,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
-                        Row(
+                        const Row(
                           spacing: AppSpacing.md,
                           children: [
                             Expanded(
@@ -191,7 +191,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                         ),
 
                         // Semantic Colors
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         Text(
                           'Semantic Colors',
                           style:
@@ -199,7 +199,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
-                        Row(
+                        const Row(
                           spacing: AppSpacing.md,
                           children: [
                             Expanded(
@@ -218,7 +218,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                             ),
                           ],
                         ),
-                        Row(
+                        const Row(
                           spacing: AppSpacing.md,
                           children: [
                             Expanded(
@@ -245,11 +245,11 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
               ),
 
               // Status Badges
-              FeatureSection(
+              const FeatureSection(
                 title: 'Status Badges',
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       horizontal: AppSpacing.lg,
                     ),
                     child: Wrap(
@@ -279,7 +279,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(height: AppSpacing.lg),
                 ],
               ),
 
@@ -363,7 +363,7 @@ class _ComponentsScreenState extends State<ComponentsScreen> {
                                 spacing: AppSpacing.md,
                                 children: [
                                   LinearProgressIndicator(
-                                    minHeight: 8.0,
+                                    minHeight: 8,
                                     borderRadius: BorderRadius.circular(
                                       AppSpacing.radiusSmall,
                                     ),
