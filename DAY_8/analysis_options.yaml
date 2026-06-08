@@ -1,0 +1,330 @@
+# Linter and Analyzer Rules for Flutter Project
+# This file configures code analysis for the Navigation Showcase app
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "build/**"
+    
+  errors:
+    missing_required_param: error
+    missing_return: error
+    todo: ignore
+    deprecated_member_use_from_same_package: ignore
+
+  rules:
+    # Avoid Empty Else Blocks
+    - avoid_empty_else
+
+    # Avoid Print
+    - avoid_print
+
+    # Avoid Relative Lib Imports
+    - avoid_relative_lib_imports
+
+    # Avoid Returning Null
+    - avoid_returning_null
+
+    # Avoid Returning This
+    - avoid_returning_this
+
+    # Avoid Slow Async IO In Tests
+    - avoid_slow_async_io
+
+    # Avoid Types As Parameter Names
+    - avoid_types_as_parameter_names
+
+    # Avoid Unnecessary Containers
+    - avoid_unnecessary_containers
+
+    # Camel Case Extensions
+    - camel_case_extensions
+
+    # Camel Case Types
+    - camel_case_types
+
+    # Cascade Extensions
+    - cascade_extensions
+
+    # Cast Nullable To Non Nullable
+    - cast_nullable_to_non_nullable
+
+    # Close Sinks
+    - close_sinks
+
+    # Collection Literal Unrelated Type Check
+    - collection_literal_unrelated_type_check
+
+    # Comment References
+    - comment_references
+
+    # Conditional Uri
+    - conditional_uri_does_not_exist
+
+    # Constant Identifier Names
+    - constant_identifier_names
+
+    # Curly Braces In Flow Control Statements
+    - curly_braces_in_flow_control_statements
+
+    # Directives Ordering
+    - directives_ordering
+
+    # Empty Catches
+    - empty_catches
+
+    # Empty Constructor Bodies
+    - empty_constructor_bodies
+
+    # Empty Statements
+    - empty_statements
+
+    # Eol At End Of File
+    - eol_at_end_of_file
+
+    # Hash And Equals
+    - hash_and_equals
+
+    # Implementation Imports
+    - implementation_imports
+
+    # Leading Newlines In Multiline Strings
+    - leading_newlines_in_multiline_strings
+
+    # Library Names
+    - library_names
+
+    # Library Prefixes
+    - library_prefixes
+
+    # Library Private Types In Public Api
+    - library_private_types_in_public_api
+
+    # No Adjacent Strings In List
+    - no_adjacent_strings_in_list
+
+    # Null Aware Operator On Extension On Nullable
+    - null_aware_in_condition
+
+    # Null Closures
+    - null_closures
+
+    # Omit Local Variable Types
+    - omit_local_variable_types
+
+    # One Member Abstracts
+    - one_member_abstracts
+
+    # Only Assert In Test Names
+    - only_throw_errors
+
+    # Package Api Docs
+    - package_api_docs
+
+    # Package Names
+    - package_names
+
+    # Package Prefixed Library Names
+    - package_prefixed_library_names
+
+    # Prefer Adjacent String Concatenation
+    - prefer_adjacent_string_concatenation
+
+    # Prefer Asserts In Initializer Lists
+    - prefer_asserts_in_initializer_lists
+
+    # Prefer Collection Literals
+    - prefer_collection_literals
+
+    # Prefer Conditional Assignment
+    - prefer_conditional_assignment
+
+    # Prefer Const Constructors
+    - prefer_const_constructors
+
+    # Prefer Const Constructors Over Non Const
+    - prefer_const_constructors_in_immutables
+
+    # Prefer Const Declarations
+    - prefer_const_declarations
+
+    # Prefer Const Literals To Create Immutables
+    - prefer_const_literals_to_create_immutables
+
+    # Prefer Constructors Over Static Methods
+    - prefer_constructors_over_static_methods
+
+    # Prefer Contains
+    - prefer_contains
+
+    # Prefer Equal For Default Values
+    - prefer_equal_for_default_values
+
+    # Prefer Expression Function Bodies
+    - prefer_expression_function_bodies
+
+    # Prefer Final Fields
+    - prefer_final_fields
+
+    # Prefer Final In For Each
+    - prefer_final_in_for_each
+
+    # Prefer Final Locals
+    - prefer_final_locals
+
+    # Prefer For Elements To Map From Iterable
+    - prefer_for_elements_to_map_fromIterable
+
+    # Prefer Foreach
+    - prefer_foreach
+
+    # Prefer Function Declarations Over Variables
+    - prefer_function_declarations_over_variables
+
+    # Prefer Generic Function Type Aliases
+    - prefer_generic_function_type_aliases
+
+    # Prefer If Elements To Conditional Expressions
+    - prefer_if_elements_to_conditional_expressions
+
+    # Prefer If Null Operators
+    - prefer_if_null_operators
+
+    # Prefer Int Literals
+    - prefer_int_literals
+
+    # Prefer Interpolation To Compose Strings
+    - prefer_interpolation_to_compose_strings
+
+    # Prefer Inlined Add All
+    - prefer_inlined_adds
+
+    # Prefer Iterable Where Type Argument
+    - prefer_iterable_whereType
+
+    # Prefer Multi Line For Each
+    - prefer_null_aware_operators
+
+    # Prefer Null Aware Operators
+    - prefer_null_aware_operators
+
+    # Provide Deprecation Message
+    - provide_deprecation_message
+
+    # Recursive Getters
+    - recursive_getters
+
+    # Sized Box For Spacing
+    - sized_box_for_spacing
+
+    # Sized Box Shrink
+    - sized_box_shrink
+
+    # Slash For Doc Comments
+    - slash_for_doc_comments
+
+    # Sort Constructors First
+    - sort_constructors_first
+
+    # Sort Pub Dependencies
+    - sort_pub_dependencies
+
+    # Sort Unnamed Constructors First
+    - sort_unnamed_constructors_first
+
+    # Tighten Type Of For Each Variable
+    - tighten_type_of_for_each_variable
+
+    # Type Init Formals
+    - type_init_formals
+
+    # Unawaited Futures
+    - unawaited_futures
+
+    # Unnecessary Await In Return
+    - unnecessary_await_in_return
+
+    # Unnecessary Brace In String Interp
+    - unnecessary_brace_in_string_interps
+
+    # Unnecessary Constructor Name
+    - unnecessary_constructor_name
+
+    # Unnecessary Getters Only
+    - unnecessary_getters_only
+
+    # Unnecessary Lambdas
+    - unnecessary_lambdas
+
+    # Unnecessary New
+    - unnecessary_new
+
+    # Unnecessary Overrides
+    - unnecessary_overrides
+
+    # Unnecessary Parenthesis
+    - unnecessary_parenthesis
+
+    # Unnecessary Statement
+    - unnecessary_statements
+
+    # Unnecessary String Escapes
+    - unnecessary_string_escapes
+
+    # Unnecessary String Interpolations
+    - unnecessary_string_interpolations
+
+    # Unnecessary This
+    - unnecessary_this
+
+    # Unnecessary To List In Spread
+    - unnecessary_to_list_in_spreads
+
+    # Unrelated Type Check
+    - unrelated_type_equality_checks
+
+    # Unsafe Html
+    - unsafe_html
+
+    # Use Build Context Synchronously
+    - use_build_context_synchronously
+
+    # Use Full Hex Values For Flutter Colors
+    - use_full_hex_values_for_flutter_colors
+
+    # Use Function Type Syntax For Parameters
+    - use_function_type_syntax_for_parameters
+
+    # Use If Null Coalescing
+    - use_if_null_to_convert_nullability
+
+    # Use Is Even Rather Than Modulo
+    - use_is_even_rather_than_modulo
+
+    # Use Key In Widget Constructors
+    - use_key_in_widget_constructors
+
+    # Use Late For Private Fields And Variables
+    - use_late_for_private_fields_and_variables
+
+    # Use Named Constants
+    - use_named_constants
+
+    # Use Rethrow When Possible
+    - use_rethrow_when_possible
+
+    # Use Setters To Change Properties
+    - use_setters_to_change_properties
+
+    # Use String Buffers
+    - use_string_buffers
+
+    # Use Test Throws Matchers
+    - use_test_throws_matchers
+
+    # Use To Close Annotation
+    - use_to_close_annotation
+
+    # Void Is Only In Return Type
+    - void_checks
