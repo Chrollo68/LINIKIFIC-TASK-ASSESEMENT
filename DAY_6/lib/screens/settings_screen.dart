@@ -72,7 +72,7 @@ class SettingsScreen extends StatelessWidget {
                               leading: Radio<ThemeMode>(
                                 value: ThemeMode.light,
                                 groupValue: themeProvider.themeMode,
-                                onChanged: (ThemeMode? value) {
+                                onChanged: (value) {
                                   if (value != null) {
                                     themeProvider.setLightTheme();
                                   }
@@ -96,7 +96,7 @@ class SettingsScreen extends StatelessWidget {
                               leading: Radio<ThemeMode>(
                                 value: ThemeMode.dark,
                                 groupValue: themeProvider.themeMode,
-                                onChanged: (ThemeMode? value) {
+                                onChanged: (value) {
                                   if (value != null) {
                                     themeProvider.setDarkTheme();
                                   }
@@ -120,7 +120,7 @@ class SettingsScreen extends StatelessWidget {
                               leading: Radio<ThemeMode>(
                                 value: ThemeMode.system,
                                 groupValue: themeProvider.themeMode,
-                                onChanged: (ThemeMode? value) {
+                                onChanged: (value) {
                                   if (value != null) {
                                     themeProvider.setSystemTheme();
                                   }

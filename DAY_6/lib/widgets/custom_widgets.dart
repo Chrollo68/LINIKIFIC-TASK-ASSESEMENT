@@ -3,7 +3,7 @@ import '../themes/app_theme.dart';
 
 /// Custom header widget
 class CustomHeader extends StatelessWidget {
-  const CustomHeader({super.key, required this.title, this.subtitle});
+  const CustomHeader({required this.title, super.key, this.subtitle});
   final String title;
   final String? subtitle;
 
@@ -26,9 +26,9 @@ class CustomHeader extends StatelessWidget {
 /// Themed card widget for demonstration
 class DemoCard extends StatelessWidget {
   const DemoCard({
-    super.key,
     required this.title,
     required this.description,
+    super.key,
     this.icon,
     this.onTap,
   });
@@ -65,10 +65,10 @@ class DemoCard extends StatelessWidget {
 /// Theme preview card
 class ThemePreviewCard extends StatelessWidget {
   const ThemePreviewCard({
-    super.key,
     required this.title,
     required this.backgroundColor,
     required this.textColor,
+    super.key,
     this.onTap,
     this.isSelected = false,
   });
@@ -115,10 +115,10 @@ class ThemePreviewCard extends StatelessWidget {
 /// Status badge widget
 class StatusBadge extends StatelessWidget {
   const StatusBadge({
-    super.key,
     required this.label,
     required this.backgroundColor,
     required this.textColor,
+    super.key,
   });
   final String label;
   final Color backgroundColor;
@@ -148,10 +148,10 @@ class StatusBadge extends StatelessWidget {
 /// Semantic color showcase
 class SemanticColorTile extends StatelessWidget {
   const SemanticColorTile({
-    super.key,
     required this.label,
     required this.color,
     required this.semanticName,
+    super.key,
   });
   final String label;
   final Color color;
@@ -196,8 +196,8 @@ class SemanticColorTile extends StatelessWidget {
 /// Responsive grid widget
 class ResponsiveGrid extends StatelessWidget {
   const ResponsiveGrid({
-    super.key,
     required this.children,
+    super.key,
     this.mobileColumns = 1,
     this.tabletColumns = 2,
     this.desktopColumns = 3,
@@ -237,7 +237,7 @@ class ResponsiveGrid extends StatelessWidget {
 /// Feature showcase section
 class FeatureSection extends StatelessWidget {
   const FeatureSection(
-      {super.key, required this.title, required this.children});
+      {required this.title, required this.children, super.key});
   final String title;
   final List<Widget> children;
 
