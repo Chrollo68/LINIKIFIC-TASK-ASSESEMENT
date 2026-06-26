@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers.dart';
 
 class HomeScreen extends ConsumerWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +24,7 @@ class HomeScreen extends ConsumerWidget {
           children: [
             Text("Counter", style: TextStyle(fontSize: 22)),
 
-            Text("${counter}", style: TextStyle(fontSize: 40)),
+            Text("$counter", style: TextStyle(fontSize: 40)),
 
             ElevatedButton(
               onPressed: () {

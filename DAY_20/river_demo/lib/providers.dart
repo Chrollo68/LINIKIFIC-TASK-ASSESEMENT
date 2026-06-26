@@ -10,11 +10,6 @@ final appNameProvider = Provider<String>((ref) {
   return "Riverpod Demo App";
 });
 
-// --------------------
-// StateProvider
-// Simple state
-// --------------------
-
 final counterProvider = StateProvider<int>((ref) {
   return 0;
 });
@@ -45,11 +40,6 @@ class TaskNotifier extends StateNotifier<List<Task>> {
 final taskProvider = StateNotifierProvider<TaskNotifier, List<Task>>((ref) {
   return TaskNotifier();
 });
-
-// --------------------
-// FutureProvider
-// API simulation
-// --------------------
 
 final userProvider = FutureProvider<String>((ref) async {
   await Future.delayed(Duration(seconds: 2));
