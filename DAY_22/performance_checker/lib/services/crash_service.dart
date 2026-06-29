@@ -8,17 +8,8 @@ class CrashService {
     debugPrint("Error: $error");
 
     debugPrint("StackTrace: $stackTrace");
-
-    /*
-    FirebaseCrashlytics.instance.recordError(
-      error,
-      stackTrace,
-      fatal: false,
-    );
-    */
   }
 
-  // Simulate a crash for testing
   static void generateTestCrash() {
     try {
       throw Exception("This is a test crash generated for debugging");
@@ -26,8 +17,6 @@ class CrashService {
       logError(error, stackTrace);
     }
   }
-
-  // Example async error handling
 
   static Future<void> fetchData() async {
     try {
