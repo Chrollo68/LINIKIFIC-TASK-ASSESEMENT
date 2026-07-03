@@ -77,6 +77,54 @@ class _AuthScreenState extends State<AuthScreen> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 24),
+                      // Error message display
+                      if (authProvider.errorMessage != null)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.error.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.error_outline,
+                                  color: Theme.of(context).colorScheme.error,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    authProvider.errorMessage!,
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.error,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: authProvider.clearError,
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: Theme.of(context).colorScheme.error,
+                                    size: 16,
+                                  ),
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       if (!_isLogin)
                         CustomTextField(
                           label: 'Name',
@@ -129,43 +177,31 @@ class _AuthScreenState extends State<AuthScreen> {
                         onPressed: () async {
                           if (!_formKey.currentState!.validate()) return;
                           if (_isLogin) {
-                            await authProvider.login(
+                            final success = await authProvider.login(
                               _emailController.text,
                               _passwordController.text,
                             );
                             if (!mounted) return;
-                            if (authProvider.isAuthenticated) {
+                            if (success) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Welcome back!')),
                               );
                               Navigator.pushReplacementNamed(context, '/home');
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Invalid credentials'),
-                                ),
-                              );
                             }
                           } else {
-                            await authProvider.register(
+                            final success = await authProvider.register(
                               _nameController.text,
                               _emailController.text,
                               _passwordController.text,
                             );
                             if (!mounted) return;
-                            if (authProvider.isAuthenticated) {
+                            if (success) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Account created successfully'),
                                 ),
                               );
                               Navigator.pushReplacementNamed(context, '/home');
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Email already exists'),
-                                ),
-                              );
                             }
                           }
                         },
@@ -174,6 +210,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       TextButton(
                         onPressed: () {
                           setState(() => _isLogin = !_isLogin);
+                          authProvider.clearError();
                         },
                         child: Text(
                           _isLogin

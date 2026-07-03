@@ -8,7 +8,6 @@ import 'routes.dart';
 import 'screens/auth/auth_screen.dart';
 import 'screens/splash/splash_screen.dart';
 import 'screens/main_shell.dart';
-import 'screens/home/home_screen.dart';
 import 'screens/workout/workout_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'theme/app_theme.dart';

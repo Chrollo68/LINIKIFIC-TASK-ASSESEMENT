@@ -9,7 +9,7 @@ class UserModel {
     this.weight = 70,
   });
 
-  final String id;
+  final int id;
   final String name;
   final String email;
   final String password;
@@ -19,8 +19,23 @@ class UserModel {
 
   double get bmi => weight / ((height / 100) * (height / 100));
 
+  /// Convert UserModel to JSON map
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'name': name, 'email': email, 'password': password};
+  }
+
+  /// Create UserModel from JSON map
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      password: json['password'] as String,
+    );
+  }
+
   UserModel copyWith({
-    String? id,
+    int? id,
     String? name,
     String? email,
     String? password,

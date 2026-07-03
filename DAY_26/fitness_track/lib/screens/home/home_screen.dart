@@ -189,11 +189,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.play_circle_fill,
                       'Complete',
                       () => workoutProvider.completeWorkout(
-                        const WorkoutModel(
-                          id: '0',
+                        WorkoutModel(
+                          id: 0,
+                          userId: 1,
                           title: 'Quick Session',
-                          duration: '10 min',
+                          duration: 10,
                           calories: 140,
+                          date: DateTime.now(),
                           difficulty: 'Easy',
                           icon: '⚡',
                           description: 'Quick move',
