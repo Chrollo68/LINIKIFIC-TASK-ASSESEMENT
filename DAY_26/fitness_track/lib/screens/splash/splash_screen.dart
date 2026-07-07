@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
     Future<void>.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, '/auth');
+      Navigator.pushReplacementNamed(context, '/health-metrics');
     });
   }
 

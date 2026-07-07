@@ -1,39 +1,64 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseConfig {
-  /// Initialize Supabase
-  /// Replace with your own Supabase URL and Anon Key from your Supabase project
-  static const String supabaseUrl = 'https://jtqxtmyljshyfqkzljzt.supabase.co';
-  static const String supabaseAnonKey =
-      'sb_publishable_dMzBrbx-f_VZ-QpuW9m1cw_ghHWGh2V';
+  static late Supabase _supabase;
+  static bool _isInitialized = false;
 
-  static Future<void> initialize() async {
-    await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
+  static String get supabaseUrl {
+    final url = dotenv.env['SUPABASE_URL'];
+    if (url == null || url.isEmpty) {
+      throw Exception('SUPABASE_URL environment variable is not set');
+    }
+    return url;
   }
 
-  static Supabase get instance => Supabase.instance;
-  static SupabaseClient get client => Supabase.instance.client;
-}
+  static String get supabaseAnonKey {
+    final key = dotenv.env['SUPABASE_ANON_KEY'];
+    if (key == null || key.isEmpty) {
+      throw Exception('SUPABASE_ANON_KEY environment variable is not set');
+    }
+    return key;
+  }
 
-/// SQL Commands to run in Supabase SQL Editor to create tables:
-///
-/// -- Create users table
-/// CREATE TABLE users (
-///   id BIGSERIAL PRIMARY KEY,
-///   name TEXT NOT NULL,
-///   email TEXT UNIQUE NOT NULL,
-///   password TEXT NOT NULL,
-///   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-///   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-/// );
-///
-/// -- Create workouts table
-/// CREATE TABLE workouts (
-///   id BIGSERIAL PRIMARY KEY,
-///   user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-///   title TEXT NOT NULL,
-///   duration INTEGER NOT NULL,
-///   calories INTEGER NOT NULL,
-///   date DATE NOT NULL,
-///   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-/// );
+  static Future<void> initialize() async {
+    if (_isInitialized) {
+      print('Supabase is already initialized');
+      return;
+    }
+
+    try {
+      print('Starting Supabase initialization...');
+      print('URL: $supabaseUrl');
+
+      _supabase = await Supabase.initialize(
+        url: supabaseUrl,
+        anonKey: supabaseAnonKey,
+      );
+
+      _isInitialized = true;
+      print('✓ Supabase initialized successfully');
+    } catch (e) {
+      print('✗ Supabase initialization failed: $e');
+      rethrow;
+    }
+  }
+
+  static Supabase get instance {
+    if (!_isInitialized) {
+      throw Exception(
+        'Supabase has not been initialized. Call initialize() first.',
+      );
+    }
+    return _supabase;
+  }
+
+  static SupabaseClient get client {
+    if (!_isInitialized) {
+      throw Exception(
+        'Supabase has not been initialized. Call initialize() first.',
+      );
+    }
+    return Supabase.instance.client;
+  }
+}

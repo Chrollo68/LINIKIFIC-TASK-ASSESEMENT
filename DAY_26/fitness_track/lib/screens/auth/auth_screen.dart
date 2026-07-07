@@ -15,8 +15,8 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController(text: 'admin@gmail.com');
-  final _passwordController = TextEditingController(text: '123456');
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool _isLogin = true;
 
   @override
@@ -27,14 +27,54 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
+  Future<void> _handleSubmit(AuthProvider authProvider) async {
+    if (!_formKey.currentState!.validate()) return;
+
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    final messenger = ScaffoldMessenger.of(context);
+
+    bool success;
+    if (_isLogin) {
+      success = await authProvider.login(email, password);
+    } else {
+      success = await authProvider.register(name, email, password);
+    }
+
+    if (!mounted) return;
+
+    if (success) {
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            _isLogin
+                ? 'Logged in successfully'
+                : 'Registration completed successfully',
+          ),
+        ),
+      );
+      Navigator.pushReplacementNamed(context, '/health-metrics');
+      return;
+    }
+
+    if (!mounted) return;
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(authProvider.errorMessage ?? 'Authentication failed'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
             child: Card(
               elevation: 0,
               shape: RoundedRectangleBorder(
@@ -53,7 +93,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         decoration: BoxDecoration(
                           color: Theme.of(
                             context,
-                          ).colorScheme.primary.withOpacity(0.12),
+                          ).colorScheme.primary.withOpacity(0.16),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Icon(
@@ -62,32 +102,32 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
                       Text(
-                        _isLogin ? 'Welcome back' : 'Create account',
+                        _isLogin ? 'Sign In' : 'Create Account',
                         style: Theme.of(context).textTheme.headlineSmall
                             ?.copyWith(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         _isLogin
-                            ? 'Continue your plan and stay consistent.'
-                            : 'Start your wellness routine with FitFlow.',
+                            ? 'Access your fitness dashboard and continue your routine.'
+                            : 'Register with your email and start tracking your progress.',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 24),
-                      // Error message display
                       if (authProvider.errorMessage != null)
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: Container(
+                            width: double.infinity,
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                               color: Theme.of(
                                 context,
-                              ).colorScheme.error.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(8),
+                              ).colorScheme.error.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: Theme.of(context).colorScheme.error,
                               ),
@@ -96,10 +136,10 @@ class _AuthScreenState extends State<AuthScreen> {
                               children: [
                                 Icon(
                                   Icons.error_outline,
-                                  color: Theme.of(context).colorScheme.error,
                                   size: 20,
+                                  color: Theme.of(context).colorScheme.error,
                                 ),
-                                const SizedBox(width: 8),
+                                const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
                                     authProvider.errorMessage!,
@@ -107,7 +147,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                       color: Theme.of(
                                         context,
                                       ).colorScheme.error,
-                                      fontSize: 12,
+                                      fontSize: 13,
                                     ),
                                   ),
                                 ),
@@ -115,8 +155,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                   onPressed: authProvider.clearError,
                                   icon: Icon(
                                     Icons.close,
+                                    size: 18,
                                     color: Theme.of(context).colorScheme.error,
-                                    size: 16,
                                   ),
                                   padding: EdgeInsets.zero,
                                   constraints: const BoxConstraints(),
@@ -127,15 +167,12 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       if (!_isLogin)
                         CustomTextField(
-                          label: 'Name',
-                          hint: 'Your name',
+                          label: 'Name (optional)',
+                          hint: 'Enter your full name',
                           controller: _nameController,
                           icon: Icons.person,
-                          validator: (value) => value == null || value.isEmpty
-                              ? 'Enter your name'
-                              : null,
                         ),
-                      if (!_isLogin) const SizedBox(height: 14),
+                      if (!_isLogin) const SizedBox(height: 16),
                       CustomTextField(
                         label: 'Email',
                         hint: 'you@example.com',
@@ -144,15 +181,15 @@ class _AuthScreenState extends State<AuthScreen> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Enter an email';
+                            return 'Please enter your email';
                           }
-                          if (!value.contains('@')) {
-                            return 'Enter a valid email';
+                          if (!value.contains('@') || !value.contains('.')) {
+                            return 'Please enter a valid email address';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: 16),
                       CustomTextField(
                         label: 'Password',
                         hint: 'At least 6 characters',
@@ -161,10 +198,10 @@ class _AuthScreenState extends State<AuthScreen> {
                         obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Enter a password';
+                            return 'Please enter your password';
                           }
                           if (value.length < 6) {
-                            return 'Must be at least 6 characters';
+                            return 'Password must be at least 6 characters';
                           }
                           return null;
                         },
@@ -174,49 +211,31 @@ class _AuthScreenState extends State<AuthScreen> {
                         label: _isLogin ? 'Log In' : 'Register',
                         icon: _isLogin ? Icons.login : Icons.person_add,
                         isLoading: authProvider.isLoading,
-                        onPressed: () async {
-                          if (!_formKey.currentState!.validate()) return;
-                          if (_isLogin) {
-                            final success = await authProvider.login(
-                              _emailController.text,
-                              _passwordController.text,
-                            );
-                            if (!mounted) return;
-                            if (success) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Welcome back!')),
-                              );
-                              Navigator.pushReplacementNamed(context, '/home');
-                            }
-                          } else {
-                            final success = await authProvider.register(
-                              _nameController.text,
-                              _emailController.text,
-                              _passwordController.text,
-                            );
-                            if (!mounted) return;
-                            if (success) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Account created successfully'),
-                                ),
-                              );
-                              Navigator.pushReplacementNamed(context, '/home');
-                            }
-                          }
-                        },
+                        onPressed: () => _handleSubmit(authProvider),
                       ),
-                      const SizedBox(height: 18),
-                      TextButton(
-                        onPressed: () {
-                          setState(() => _isLogin = !_isLogin);
-                          authProvider.clearError();
-                        },
-                        child: Text(
-                          _isLogin
-                              ? 'Create an account'
-                              : 'Already have an account?',
-                        ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            _isLogin
+                                ? 'New to FitFlow?'
+                                : 'Already have an account?',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(width: 8),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _isLogin = !_isLogin;
+                                authProvider.clearError();
+                              });
+                            },
+                            child: Text(
+                              _isLogin ? 'Create account' : 'Sign in',
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

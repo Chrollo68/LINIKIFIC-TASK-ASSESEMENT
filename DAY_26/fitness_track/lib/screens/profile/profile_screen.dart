@@ -110,6 +110,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 16),
           Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Recommended Routines',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  ...authProvider.recommendedRoutines.map(
+                    (r) => ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(r.title),
+                      subtitle: Text(r.description),
+                      trailing: Text('${r.minutesPerDay} min'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Card(
             child: Column(
               children: [
                 const ProfileTile(

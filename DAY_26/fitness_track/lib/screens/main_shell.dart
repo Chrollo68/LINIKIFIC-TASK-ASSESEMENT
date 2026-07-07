@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
+import '../providers/workout_provider.dart';
 import 'home/home_screen.dart';
 import 'profile/profile_screen.dart';
 import 'workout/workout_screen.dart';
@@ -15,6 +16,20 @@ class MainShell extends StatefulWidget {
 
 class _MainShellState extends State<MainShell> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize workout provider with user email
+    Future.microtask(() async {
+      final authProvider = context.read<AuthProvider>();
+      final workoutProvider = context.read<WorkoutProvider>();
+      final userEmail = authProvider.user?.email ?? '';
+      if (userEmail.isNotEmpty) {
+        await workoutProvider.initializeWithUser(userEmail);
+      }
+    });
+  }
 
   final List<Widget> _screens = const [
     HomeScreen(),

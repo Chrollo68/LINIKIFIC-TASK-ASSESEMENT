@@ -65,7 +65,7 @@ class WorkoutCard extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 8,
                     children: [
-                      _chip(context, workout.duration as String),
+                      _chip(context, '${workout.duration} min'),
                       _chip(context, '${workout.calories} kcal'),
                       _chip(context, workout.difficulty),
                     ],

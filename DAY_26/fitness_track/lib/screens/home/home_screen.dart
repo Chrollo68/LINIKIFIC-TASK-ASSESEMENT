@@ -4,11 +4,24 @@ import 'package:provider/provider.dart';
 import '../../models/workout_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/workout_provider.dart';
+import '../../services/workout_tracker.dart';
 import '../../widgets/circular_stat_widget.dart';
 import '../../widgets/dashboard_card.dart';
 import '../../widgets/info_card.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/progress_card.dart';
+
+class WorkoutActivity {
+  final String title;
+  final int duration;
+  final int calories;
+
+  WorkoutActivity({
+    required this.title,
+    required this.duration,
+    required this.calories,
+  });
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -130,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Spacer(),
                     Text(
-                      '82%',
+                      '${(workoutProvider.progress.overallProgress * 100).toStringAsFixed(0)}%',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                         color: Theme.of(context).colorScheme.primary,
@@ -143,17 +156,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ProgressCard(
-                      value: 0.82,
+                      value: workoutProvider.progress.goalProgress.clamp(
+                        0.0,
+                        1.0,
+                      ),
                       label: 'Goal',
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     ProgressCard(
-                      value: 0.68,
+                      value: workoutProvider.progress.focusProgress.clamp(
+                        0.0,
+                        1.0,
+                      ),
                       label: 'Focus',
                       color: Colors.orangeAccent,
                     ),
                     ProgressCard(
-                      value: 0.9,
+                      value: workoutProvider.progress.recoveryProgress.clamp(
+                        0.0,
+                        1.0,
+                      ),
                       label: 'Recovery',
                       color: Colors.blueAccent,
                     ),
@@ -225,23 +247,54 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                _activityRow(
-                  context,
-                  'Morning cardio',
-                  '20 min',
-                  Icons.directions_run,
-                ),
-                _activityRow(
-                  context,
-                  'Hydration boost',
-                  '250 ml',
-                  Icons.water_drop,
-                ),
-                _activityRow(
-                  context,
-                  'Stretching',
-                  '12 min',
-                  Icons.self_improvement,
+                FutureBuilder<List<dynamic>>(
+                  future: _buildRecentActivities(workoutProvider, authProvider),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: SizedBox(
+                          height: 30,
+                          child: Center(
+                            child: SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          'No activities yet. Complete a workout to get started!',
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.6),
+                              ),
+                        ),
+                      );
+                    }
+
+                    return Column(
+                      children: (snapshot.data as List).map((activity) {
+                        if (activity is WorkoutActivity) {
+                          return _activityRow(
+                            context,
+                            activity.title,
+                            '${activity.duration} min',
+                            Icons.directions_run,
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      }).toList(),
+                    );
+                  },
                 ),
               ],
             ),
@@ -279,6 +332,27 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  Future<List<dynamic>> _buildRecentActivities(
+    WorkoutProvider workoutProvider,
+    AuthProvider authProvider,
+  ) async {
+    final userEmail = authProvider.user?.email ?? '';
+    if (userEmail.isEmpty) return [];
+
+    final tracker = WorkoutTracker();
+    final completedWorkouts = await tracker.getTodayWorkouts(userEmail);
+
+    return completedWorkouts
+        .map(
+          (w) => WorkoutActivity(
+            title: w.title,
+            duration: w.duration,
+            calories: w.calories,
+          ),
+        )
+        .toList();
   }
 
   Widget _actionChip(

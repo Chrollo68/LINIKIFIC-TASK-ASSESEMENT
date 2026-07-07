@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
+import '../services/bmi_service.dart';
+import '../services/workout_routine_service.dart';
 
 class AuthProvider extends ChangeNotifier {
   AuthProvider() {
@@ -19,16 +21,13 @@ class AuthProvider extends ChangeNotifier {
   bool get isAuthenticated => _isAuthenticated;
   String? get errorMessage => _errorMessage;
 
-  /// Login with email and password
   Future<bool> login(String email, String password) async {
-    _isLoading = true;
+    _setLoading(true);
     _errorMessage = null;
-    notifyListeners();
 
     if (email.isEmpty || password.isEmpty) {
       _errorMessage = 'Email and password cannot be empty';
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
       return false;
     }
 
@@ -37,104 +36,140 @@ class AuthProvider extends ChangeNotifier {
     _isAuthenticated = result != null;
 
     if (!_isAuthenticated) {
-      _errorMessage = 'Invalid email or password';
-    }
-
-    _isLoading = false;
-    notifyListeners();
-    return _isAuthenticated;
-  }
-
-  /// Register new user with email and password
-  Future<bool> register(String name, String email, String password) async {
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
-
-    // Validation
-    if (name.isEmpty) {
-      _errorMessage = 'Name cannot be empty';
-      _isLoading = false;
-      notifyListeners();
+      _errorMessage = 'Please confirm your email before logging in.';
+      _setLoading(false);
       return false;
     }
 
-    if (email.isEmpty || !email.contains('@')) {
+    await _saveMetricsForUser();
+    _setLoading(false);
+    return true;
+  }
+
+  Future<bool> resendConfirmationEmail(String email) async {
+    _setLoading(true);
+    final sent = await _service.resendConfirmationEmail(email);
+    if (sent) {
+      _errorMessage = 'Confirmation email sent. Please check your inbox.';
+    } else {
+      _errorMessage = 'Could not resend confirmation email.';
+    }
+    _setLoading(false);
+    return sent;
+  }
+
+  Future<bool> register(String name, String email, String password) async {
+    _setLoading(true);
+    _errorMessage = null;
+
+    final normalizedName = name.trim();
+    final normalizedEmail = email.trim();
+    final sanitizedEmail = normalizedEmail.contains('@')
+        ? normalizedEmail
+        : RegExp(
+                r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}',
+              ).stringMatch(normalizedEmail) ??
+              '';
+
+    if (sanitizedEmail.isEmpty || !sanitizedEmail.contains('@')) {
       _errorMessage = 'Enter a valid email address';
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
       return false;
     }
 
     if (password.isEmpty || password.length < 6) {
       _errorMessage = 'Password must be at least 6 characters';
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
       return false;
     }
 
-    // Check if email exists
-    final exists = await _service.emailExists(email);
-    if (exists) {
-      _errorMessage = 'Email already registered';
-      _isLoading = false;
-      notifyListeners();
-      return false;
-    }
-
-    final result = await _service.register(name, email, password);
+    final result = await _service.register(normalizedName, email, password);
     _user = result;
     _isAuthenticated = result != null;
 
     if (!_isAuthenticated) {
       _errorMessage = 'Registration failed. Please try again.';
+      _setLoading(false);
+      return false;
     }
 
-    _isLoading = false;
-    notifyListeners();
-    return _isAuthenticated;
+    await _saveMetricsForUser();
+    _setLoading(false);
+    return true;
   }
 
-  /// Logout user
   Future<void> logout() async {
-    _isLoading = true;
-    notifyListeners();
+    _setLoading(true);
     await _service.logout();
     _user = null;
     _isAuthenticated = false;
     _errorMessage = null;
-    _isLoading = false;
-    notifyListeners();
+    _setLoading(false);
   }
 
-  /// Update user profile
   Future<bool> updateProfile(UserModel updatedUser) async {
-    _isLoading = true;
-    notifyListeners();
+    _setLoading(true);
 
     final result = await _service.updateUser(updatedUser);
     if (result != null) {
       _user = result;
       _errorMessage = null;
-      _isLoading = false;
-      notifyListeners();
+      await _saveMetricsForUser();
+      _setLoading(false);
       return true;
-    } else {
-      _errorMessage = 'Failed to update profile';
-      _isLoading = false;
-      notifyListeners();
-      return false;
     }
+
+    _errorMessage = 'Failed to update profile';
+    _setLoading(false);
+    return false;
   }
 
-  /// Clear error message
   void clearError() {
     _errorMessage = null;
     notifyListeners();
   }
 
-  /// Get current user
   UserModel? getCurrentUser() {
     return _service.getCurrentUser();
+  }
+
+  BmiMetrics? _metrics;
+  BmiMetrics? get metrics => _metrics;
+
+  List<WorkoutRoutine> get recommendedRoutines {
+    final bmi = _metrics?.bmi ?? _user?.bmi ?? 0.0;
+    return WorkoutRoutineService.instance.getRoutinesForBmi(bmi);
+  }
+
+  Future<void> _saveMetricsForUser() async {
+    final userKey = _user?.email ?? '';
+    if (userKey.isEmpty || _user == null) {
+      return;
+    }
+
+    await BmiService.instance.saveMetrics(
+      userKey,
+      weightKg: _user!.weight,
+      heightCm: _user!.height,
+    );
+
+    _metrics = await BmiService.instance.getMetrics(userKey);
+    notifyListeners();
+  }
+
+  Future<bool> updateUserMetrics({
+    required double height,
+    required double weight,
+  }) async {
+    if (_user == null) return false;
+
+    _user = _user!.copyWith(height: height, weight: weight);
+    await _saveMetricsForUser();
+    return true;
+  }
+
+  void _setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
   }
 }

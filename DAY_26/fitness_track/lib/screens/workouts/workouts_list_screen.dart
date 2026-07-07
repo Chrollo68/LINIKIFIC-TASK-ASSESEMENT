@@ -6,12 +6,6 @@ import '../../providers/supabase_workout_provider.dart';
 import '../../widgets/primary_button.dart';
 import 'add_workout_screen.dart';
 
-/// Example Workouts List Screen demonstrating Supabase integration
-/// Shows how to:
-/// - Load workouts from Supabase
-/// - Display workouts in a list
-/// - Handle loading and error states
-/// - Navigate to add/edit workout screen
 class WorkoutsListScreen extends StatefulWidget {
   const WorkoutsListScreen({super.key});
 
